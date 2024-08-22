@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://7hvvplo2ptai"]
+
+[node name="gridmap"]
+
+[node name="rock03" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.81105, -5, 0.0352974)
+
+[node name="rock02" parent="." index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0610465, -5, 0.0352973)
+
+[node name="rock01" parent="." index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.43895, -5, 0.0352972)
+
+[node name="dirt03" parent="." index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.81105, -2.5, 0.0352974)
+
+[node name="dirt01" parent="." index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0610465, -2.5, 0.0352973)
+
+[node name="dirt02" parent="." index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.43895, -2.5, 0.0352972)
+
+[node name="grass03" parent="." index="6"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.81105, 0, 0.0352974)
+
+[node name="grass02" parent="." index="7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0610465, 0, 0.0352973)
+
+[node name="grass01" parent="." index="8"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.43895, 0, 0.0352972)

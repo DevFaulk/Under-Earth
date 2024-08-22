@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://48eaduxve657"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tw8m2"]
+size = Vector3(0.16, 0.755, 0.16)
+
+[node name="torch" type="MeshInstance3D"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_tw8m2")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43, 0)
+light_color = Color(1, 1, 0.407843, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.3

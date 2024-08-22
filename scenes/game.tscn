@@ -1,0 +1,130 @@
+[gd_scene load_steps=15 format=3 uid="uid://dn652bo5ale8b"]
+
+[ext_resource type="PackedScene" uid="uid://b8qijfmmouqsv" path="res://scenes/player.tscn" id="1_gm1wq"]
+[ext_resource type="MeshLibrary" uid="uid://dt2uhylu2a6sk" path="res://assets/gridset.tres" id="2_hdhn4"]
+[ext_resource type="PackedScene" uid="uid://48eaduxve657" path="res://scenes/torch.tscn" id="3_ovtyf"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_s7hhp"]
+auto_exposure_enabled = true
+auto_exposure_speed = 1.25
+dof_blur_far_enabled = true
+dof_blur_near_enabled = true
+dof_blur_near_distance = 4.46
+dof_blur_near_transition = -1.0
+
+[sub_resource type="Gradient" id="Gradient_oru37"]
+colors = PackedColorArray(0.898039, 0.952941, 0.611765, 1, 1, 0.627451, 0.807843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2hwqr"]
+gradient = SubResource("Gradient_oru37")
+
+[sub_resource type="Curve" id="Curve_pnoks"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wveuh"]
+curve = SubResource("Curve_pnoks")
+
+[sub_resource type="Curve" id="Curve_r6t6d"]
+_data = [Vector2(0, 0.0857143), 0.0, 0.0, 0, 0, Vector2(1, 0.296703), 0.49482, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_vukfm"]
+_data = [Vector2(0, 0.173626), 0.0, 0.0, 0, 0, Vector2(1, 0.147253), 0.320177, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_phhs8"]
+_data = [Vector2(0, 0.0769231), 0.0, 0.0, 0, 0, Vector2(1, 0.147253), 0.401064, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_n3dwg"]
+width = 512
+curve_x = SubResource("Curve_r6t6d")
+curve_y = SubResource("Curve_vukfm")
+curve_z = SubResource("Curve_phhs8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hj7a1"]
+lifetime_randomness = 0.6
+particle_flag_rotate_y = true
+orbit_velocity_min = 0.379
+orbit_velocity_max = 1.103
+orbit_velocity_curve = SubResource("CurveXYZTexture_n3dwg")
+gravity = Vector3(0, -1, 0)
+radial_accel_min = -11.43
+radial_accel_max = -11.43
+scale_min = 0.1
+color = Color(1, 0.619608, 0.380392, 1)
+color_ramp = SubResource("GradientTexture1D_2hwqr")
+emission_curve = SubResource("CurveTexture_wveuh")
+turbulence_enabled = true
+turbulence_noise_strength = 4.74
+turbulence_noise_scale = 10.0
+turbulence_noise_speed_random = 0.1
+turbulence_initial_displacement_min = 19.5
+turbulence_initial_displacement_max = 19.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_fn4xa"]
+size = Vector2(0.25, 0.25)
+
+[node name="game" type="Node3D"]
+
+[node name="player" parent="." instance=ExtResource("1_gm1wq")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.10553, -0.232079)
+disable_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.498604, 0.0373415, 0, -0.0373415, 0.498604, 0, 0.997307, 2.86601)
+attributes = SubResource("CameraAttributesPractical_s7hhp")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_hdhn4")
+cell_size = Vector3(1, 1, 1)
+cell_scale = 0.5
+data = {
+"cells": PackedInt32Array(0, 65535, 8, 0, 0, 8, 65535, 0, 8, 65535, 65535, 8, 65534, 0, 8, 65534, 65535, 8, 1, 0, 8, 1, 65535, 8, 2, 0, 8, 2, 65535, 8, 65533, 0, 8, 65533, 65535, 8, -65534, 1, 4, -65534, 0, 4, -65534, 65535, 4, -65535, 0, 4, -65535, 65535, 8, -65536, 0, 4, -65536, 65535, 8, -1, 0, 4, -1, 65535, 4, -2, 0, 4, -2, 65535, 4, -3, 0, 4, -3, 65535, 4, -65533, 0, 4, -65533, 65535, 4, -65532, 0, 6, -65532, 65535, 6, -65529, 0, 6, -65529, 65535, 6, -65528, 0, 1, -65528, 65535, 5, -65527, 0, 5, -65527, 65535, 5, -131062, 1, 8, -131062, 0, 8, -131062, 65535, 8, -131062, 65534, 8, -131063, 1, 8, -131064, 1, 8, -131061, 65535, 8, -131061, 0, 8, -131060, 65535, 8, -131060, 0, 8, -131065, 0, 8, -131065, 65535, 4, -131068, 65535, 4, -131068, 0, 4, -196605, 0, 4, -196605, 1, 4, -196601, 1, 4, -196604, 65535, 4, -196601, 65535, 4, -196603, 65534, 4, -196602, 65534, 4, -131067, 65534, 5, -131066, 65534, 2, -65532, 65534, 4, -65529, 65534, 4, -65531, 65534, 4, -65530, 65534, 4, -262138, 65535, 4, -262139, 65535, 4, -262139, 0, 4, -262138, 0, 4, -262139, 1, 4, -262138, 1, 4, -196604, 0, 4, -196604, 1, 4, -131069, 0, 4, -131069, 1, 5, -131068, 1, 5, -131071, 1, 8, -131065, 1, 3, -65533, 65534, 8, -65534, 65534, 8, -65534, 65533, 8, -65535, 65533, 8, -65536, 65533, 8, -1, 65533, 8, -2, 65533, 8, -3, 65533, 8, -3, 65534, 8, -2, 65534, 8, -1, 65534, 8, -65536, 65534, 8, -65535, 65534, 8, -65533, 65533, 8, -65532, 65533, 8, -65531, 65533, 8, -65530, 65533, 8, -65529, 65533, 8, -65528, 65534, 8, -65527, 65534, 8, -65528, 65533, 8, -65527, 65533, 8, -65526, 65533, 8, -4, 65534, 8, -4, 65533, 8, -4, 65535, 2, -4, 0, 2, -4, 1, 1, -3, 1, 0, -2, 1, 8, -65535, 1, 8, -65536, 1, 8, -1, 1, 8, -5, 1, 8, -5, 0, 8, -5, 65535, 8, -5, 65534, 8, -5, 65533, 8, -65533, 1, 3, -65532, 1, 3, -65526, 65534, 3, -65526, 65535, 3, -65526, 0, 1, -65529, 1, 1, -65528, 1, 1, -65527, 1, 1, -65526, 1, 1, -65525, 65533, 8, -131061, 65534, 4, -131061, 65533, 4, -131060, 65533, 4, -131060, 65534, 4, -131061, 1, 4, -131060, 1, 4, -131064, 2, 4, -131063, 2, 4, -131062, 2, 4, -131061, 2, 4, -131060, 2, 4, -131065, 2, 1, -131070, 1, 1, -131072, 1, 1, -65537, 1, 1, -65538, 1, 1, -65539, 1, 1, -65540, 1, 1, -65541, 1, 1, 1, 2, 5, 0, 2, 3, 65535, 2, 3, 65534, 2, 3, 65533, 2, 4, 65532, 2, 4, 65531, 2, 3, 2, 2, 7, 3, 2, 7, 4, 2, 5, 5, 2, 3, 6, 2, 3, 7, 2, 7, 8, 2, 7, 9, 2, 7, 10, 2, 5, -6, 2, 8, -5, 2, 8, -12, 65533, 8, -12, 65534, 8, -12, 65535, 8, -12, 0, 8, -12, 1, 8, -11, 65533, 8, -11, 65534, 8, -11, 65535, 2, -11, 0, 2, -11, 1, 1, -10, 65533, 8, -10, 65534, 8, -10, 65535, 4, -10, 0, 4, -10, 1, 0, -9, 65533, 8, -9, 65534, 8, -9, 65535, 4, -9, 0, 4, -9, 1, 8, -8, 65533, 8, -8, 65534, 8, -8, 65535, 4, -8, 0, 4, -8, 1, 8, -7, 65533, 8, -7, 65534, 8, -7, 65535, 8, -7, 0, 4, -7, 1, 8, -6, 65533, 8, -6, 65534, 8, -6, 65535, 8, -6, 0, 4, -6, 1, 8, -7, 2, 8, -8, 2, 8, -9, 2, 8, -10, 2, 8, -11, 2, 8, -12, 2, 8, 65529, 2, 8, 65528, 2, 8, 65527, 1, 8, 65527, 2, 8, 65525, 2, 8, 65525, 1, 8, 65524, 1, 8, 65524, 2, 8, -65549, 65533, 3, -65549, 65534, 3, -65549, 65535, 3, -65549, 0, 3, -65549, 1, 3, -65549, 2, 3, -65550, 65533, 3, -65550, 65534, 6, -65550, 65535, 6, -65550, 0, 3, -65550, 1, 3, -65550, 2, 3, -13, 2, 5, -14, 2, 5, -13, 65532, 5, -14, 65532, 5, -65548, 65533, 5, -65548, 65534, 5, -65548, 65535, 5, -65548, 0, 5, -65548, 1, 5, -65548, 2, 5, -131087, 65533, 6, -131087, 65534, 6, -131087, 65535, 5, -131087, 0, 5, -131087, 1, 5, -131087, 2, 6, -131086, 65534, 5, -131086, 65535, 5, -131088, 2, 5, -131089, 2, 5, -131089, 1, 5, -131089, 65534, 5, -131090, 65534, 5, -131090, 65535, 5, -131089, 65535, 5, -131089, 0, 5, -131088, 0, 5, -131091, 65534, 5, -131091, 65535, 5, -131091, 0, 5, -131091, 1, 5, -131091, 2, 5, -131091, 65533, 5, -131088, 65533, 3, -131089, 65533, 3, -131090, 65533, 3, -131088, 65534, 3, -131088, 65535, 3, -131088, 1, 3, -131090, 0, 3, -131090, 1, 3, -131090, 2, 3, -65551, 2, 4, -65552, 2, 4, -65553, 2, 4, -65554, 2, 4, -65555, 2, 4, -65551, 65533, 4, -65552, 65533, 4, -65553, 65533, 4, -65554, 65533, 4, -65555, 65533, 4, -65555, 65534, 3, -65555, 65535, 3, -65555, 0, 3, -65555, 1, 4, -19, 65533, 0, -19, 65534, 0, -19, 65535, 0, -19, 0, 0, -19, 1, 0, -19, 2, 0, 65517, 65533, 0, 65517, 65534, 0, 65517, 65535, 0, 65517, 0, 0, 65517, 1, 0, 65517, 2, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="torches" type="Node3D" parent="."]
+
+[node name="torch" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+skeleton = NodePath("../..")
+
+[node name="torch2" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.54099, 0, -2.38563)
+skeleton = NodePath("../..")
+
+[node name="torch3" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65774, 4.76837e-07, -2.73916)
+skeleton = NodePath("../..")
+
+[node name="torch4" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2713, 0.390601, -2.25774)
+skeleton = NodePath("../..")
+
+[node name="torch5" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.53148, 0.28116, 2.55162)
+skeleton = NodePath("../..")
+
+[node name="torch6" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.1904, 0.194685, 2.51714)
+skeleton = NodePath("../..")
+
+[node name="torch7" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2121, -0.613482, 2.74268)
+skeleton = NodePath("../..")
+
+[node name="torch8" parent="torches" instance=ExtResource("3_ovtyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, -0.638067, -2.46176)
+skeleton = NodePath("../..")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.93079, 0)
+amount = 572
+lifetime = 600.0
+preprocess = 3.0
+randomness = 0.3
+visibility_aabb = AABB(-22.0524, -9.81968, -4, 44.1048, 19.6394, 8)
+process_material = SubResource("ParticleProcessMaterial_hj7a1")
+draw_pass_1 = SubResource("QuadMesh_fn4xa")
